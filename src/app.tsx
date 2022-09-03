@@ -1,17 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
+import styled from 'styled-components';
 
 import BreedGallery from './components/gallery';
+import Header from './components/header';
+import Upload from './components/upload';
+
+const StyledApp = styled.section`
+  padding: 4em;
+  background: papayawhip;
+`;
 
 function App() {
+  const [breed, setBreed] = useState<string>();
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <h1>Dog Breed Gallery</h1>
-      </header>
+    <StyledApp>
+      <Header />
       <main>
-        <BreedGallery/>
+        <Upload breed={breed} onBreedPrediction={setBreed} />
+        {breed ? <BreedGallery breed={breed} /> : <span> Empty list</span>}
       </main>
-    </div>
+    </StyledApp>
   );
 }
 
