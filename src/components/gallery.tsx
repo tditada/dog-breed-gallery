@@ -12,16 +12,26 @@ const StyledBox = styled(Box)`
   margin: 3em;
 `
 
+const StyledError = styled.div`
+  text-align: center;
+`
+const TRY_AGAIN_ERROR = "There was an error, please try again or choose a different image";
+
 const BREED_IMAGES_API = (breed: string): string => `https://dog.ceo/api/breed/${breed}/images`
 
-const SCROLL_DATA_SIZE = 6;
+const SCROLL_DATA_SIZE = 10;
 
-type GetBreedType = {
-  message: Array<string>,
-  success: string,
+enum SuccessOptions {
+  SUCCESS = "success",
+  ERROR = "error",
 }
 
-// TODO: empty state, errors
+type GetBreedType = {
+  message: Array<string> | String,
+  success: SuccessOptions,
+  code?: number,
+}
+
 function BreedGallery({ breed }: { breed: string | undefined }) {
   const [images, setImages] = useState<Array<string>>([]);
   const [isLoading, setLoading] = useState<boolean>(false);
@@ -50,19 +60,25 @@ function BreedGallery({ breed }: { breed: string | undefined }) {
   const getData = useCallback(async () => {
     try {
       setLoading(true);
+
       if (breed) {
         const { data } = await axios.get<GetBreedType>(BREED_IMAGES_API(breed));
-        setImages(data.message);
-        setScrollData(data.message.slice(0, SCROLL_DATA_SIZE));
-        setError(null);
+        if (Array.isArray(data.message)) {
+          setImages(data.message);
+          setScrollData(data.message.slice(0, SCROLL_DATA_SIZE));
+          setError(null);
+        }
       }
     } catch (err: any) {
-      setError(err.message);
+      setLoading(false);
       setImages([]);
+      setScrollData([]);
+      setHasMoreValue(false);
+      setError(err?.response?.data?.message || TRY_AGAIN_ERROR);
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [breed]);
 
 
   useEffect(() => {
@@ -71,7 +87,7 @@ function BreedGallery({ breed }: { breed: string | undefined }) {
 
   return (
     <div>
-      <StyledBox >
+      <StyledBox>
         <InfiniteScroll
           dataLength={scrollData.length}
           next={handleOnRowsScrollEnd}
@@ -82,21 +98,25 @@ function BreedGallery({ breed }: { breed: string | undefined }) {
         >
           {isLoading ?
             <CircularProgress data-testid="circular-progress" /> :
-            (<ImageList>
-              {scrollData.map((dogUrl: string) => (
-                <ImageListItem key={dogUrl}>
-                  <img
-                    src={`${dogUrl}?w=124&fit=crop&auto=format`}
-                    srcSet={`${dogUrl}?w=124&fit=crop&auto=format&dpr=2 2x`}
-                    alt={'dog'}
-                    loading="lazy"
-                  />
-                </ImageListItem>
-              ))}
-            </ImageList>)}
+            (error ?
+              <StyledError>{error}</StyledError> :
+              (<ImageList>
+                {scrollData.map((dogUrl: string) => (
+                  <ImageListItem key={dogUrl}>
+                    <img
+                      src={`${dogUrl}?w=124&fit=crop&auto=format`}
+                      srcSet={`${dogUrl}?w=124&fit=crop&auto=format&dpr=2 2x`}
+                      alt={'dog'}
+                      loading="lazy"
+                    />
+                  </ImageListItem>
+                ))}
+              </ImageList>)
+            )
+          }
         </InfiniteScroll>
       </StyledBox>
-      {error}
+
     </div>
   );
 }

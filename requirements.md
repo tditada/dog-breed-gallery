@@ -34,6 +34,12 @@ help you write the components (we use lit-element ourselves).
 3. _Gallery_: User should see a gallery of pictures of dogs of the same breed
    with infinite scroll
 
+#### Possible errors
+
+1. _Upload_: Image of invalid type
+2. _Classification_: Not classification available
+3. _Gallery_: (DOG API) Breed not found, dog API error
+
 ### Technical
 
 1. Single-page application
