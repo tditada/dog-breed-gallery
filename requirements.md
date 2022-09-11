@@ -21,6 +21,12 @@ expect the assignment to be delivered using either of the two technologies. If
 you choose to do it using WebComponents, feel free to use a small library to
 help you write the components (we use lit-element ourselves).
 
+For image classification, we suggest you use the
+[pre-trained tensorflow.js-model](https://github.com/tensorflow/tfjs-models/tree/master/mobilenet)
+
+For finding pictures of dogs based on their breed we suggest you refer to the
+[Dog CEO API](https://dog.ceo/dog-api/)
+
 - Please spend up to 5 days completing your solution.
 - We expect you to write a testable code and some unit tests.
 - We would like it to be a clearly documented and readable solution.

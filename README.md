@@ -4,14 +4,12 @@ App that let's you upload a dog photo, see a preview, classify it's breed and
 see a gallery of photos from the same breed. See list of requirements in
 [requirements.md](requirements.md)
 
-This project was bootstrapped with , it also uses Material UI, and React Testing
-Library.
-
 ## Getting Started (How to Launch)
 
 ### Deployed
 
-You can access the deployed app in: //TODO: ADD_VERCEL_LINK
+You can access the deployed app in:
+[Dog Breed Gallery Vercel](https://dog-breed-gallery.vercel.app/)
 
 ### Available Scripts
 
@@ -46,8 +44,12 @@ is responsive with flex design.
 
 ### Components design
 
-Each component (except `<App>`) is inside `/components` and has a single file
-with styles, constants, types and the react component.
+Each component (except `<App>`) is inside `src/components` and has a single file
+with styles, constants, types and the react component. I also created a
+`helpers.ts` file with the classify functionality, it could be also called just
+`classify` or something less generic. Other option could be for each component
+to have it's own component folder with different files for constants, helpers,
+styles and function component.
 
 #### Hierarchy
 
@@ -69,10 +71,10 @@ Stateless: Header, Preview and EmptyGallery
    3. Gallery: images, is loading, error from api, scrollData, hasMore
 
 I moved shared states up to `App`.I used `React Hooks` for state management as
-it's a small app and it can be managed just with hooks. Other option if it was a
-bit bigger and complex would have been `redux`. I also only use `useState` and
-`useEffect` but for a more complex state there's `useReducer` also or even
-`useContext`.
+it's a small app and it can be managed just with hooks. I also only use
+`useState` and `useEffect` but for a more complex state there's `useReducer`
+also or even `useContext`. Other option if it was a bit bigger and complex or
+with login would have been `redux`.
 
 ### Decisions about setup, libraries and state
 
@@ -94,8 +96,7 @@ bit bigger and complex would have been `redux`. I also only use `useState` and
 
 - More testing: I usually try to test more integration of components than units,
   and always have tests looking like the feature requests from the user
-  perspective.
+  perspective. I left some empty tests in `app.test.tsx`
 - Setup: Clean a bit more the prettier, eslint, formatters files and
   functionalities
 - Aesthetic design
-- Images sizes

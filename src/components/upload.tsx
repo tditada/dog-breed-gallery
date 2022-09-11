@@ -12,7 +12,6 @@ const StyledUpload = styled.div`
     align-items: center;
     justify-content: center;
     padding: 1rem;
-    // border: solid 1px black;
     margin: auto;
     width: fit-content;
 `;
