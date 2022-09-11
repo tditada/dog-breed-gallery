@@ -15,9 +15,13 @@ const StyledDivWithMargin = styled.div`
 `;
 
 const BREED_QUESTION_TEXT = "Dog's breed guess: ";
+export const EMPTY_BREED = 'No prediction';
 
-
-const BreedPrediction = ({ breed, imgData, setBreed }: { breed: string | undefined, imgData: any, setBreed: any }) => {
+const BreedPrediction = ({ breed, imgData, setBreed }: {
+    breed: string | undefined,
+    imgData: string | ArrayBuffer | null,
+    setBreed: React.Dispatch<React.SetStateAction<string | undefined>>,
+}) => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const getClassification = useCallback(async () => {
@@ -32,7 +36,6 @@ const BreedPrediction = ({ breed, imgData, setBreed }: { breed: string | undefin
     }, [setBreed]);
 
     useEffect(() => {
-        console.log('useEffect imgData');
         if (imgData) {
             getClassification();
         }
@@ -41,7 +44,7 @@ const BreedPrediction = ({ breed, imgData, setBreed }: { breed: string | undefin
     return (
         <StyledPredictionContainer>
             <StyledDivWithMargin>{BREED_QUESTION_TEXT}</StyledDivWithMargin>
-            <div>{isLoading ? <CircularProgress /> : (breed ? breed.toUpperCase() : 'No prediction')}</div>
+            <div>{isLoading ? <CircularProgress /> : (breed ? breed.toUpperCase() : EMPTY_BREED)}</div>
         </StyledPredictionContainer>
     )
 }

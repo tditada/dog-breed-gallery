@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const HEADER_TEXT = 'Dog Breed Gallery';
+export const HEADER_TEXT = 'Dog Breed Gallery';
 
 const StyledHeader = styled.header`
     text-align: center;

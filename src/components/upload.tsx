@@ -40,7 +40,7 @@ const StyledExplanationText = styled.div`
     padding-bottom: 1rem;
 }`;
 
-const EXPLANATION_TEXT = 'Want to know what breed a dog is and find similar photos?';
+export const EXPLANATION_TEXT = 'Want to know what breed a dog is and find similar photos?';
 const UPLOAD_BUTTON_TEXT = "upload dog";
 
 
@@ -68,13 +68,12 @@ const Upload = ({ imgData, setBreed, setImgData }: {
         }
     };
 
-
     return (
         <StyledUpload>
             <StyledButtonContainer>
                 <StyledInput htmlFor="contained-button-file">
                     <StyledExplanationText>{EXPLANATION_TEXT}</StyledExplanationText>
-                    <input hidden accept="image/*" id="contained-button-file" type="file" onChange={onChangePicture} />
+                    <input hidden accept="image/*" id="contained-button-file" data-testid="contained-button-file" type="file" onChange={onChangePicture} />
                     <Button sx={boxSX} variant="contained" component="span">
                         <PhotoCamera />
                         {UPLOAD_BUTTON_TEXT}

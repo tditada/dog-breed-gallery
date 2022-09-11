@@ -15,14 +15,13 @@ const StyledEmptyText = styled.div`
     margin: 1rem;
 `;
 
-const EMPTY_TEXT = 'No similar dogs photos found yet';
+export const EMPTY_TEXT = 'No similar dogs photos found yet';
 
-const EmptyGallery = () => {
-
-    return (<StyledEmptyDiv>
+const EmptyGallery = () => (
+    <StyledEmptyDiv>
         <StyledEmptyText>{EMPTY_TEXT} </StyledEmptyText>
         <StyledImage src="/black-dog.png" alt="" />
-    </StyledEmptyDiv>);
-}
+    </StyledEmptyDiv>
+);
 
 export default EmptyGallery;

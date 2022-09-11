@@ -1,12 +1,12 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
+import InfiniteScroll from "react-infinite-scroll-component";
 
 import Box from '@mui/material/Box';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import CircularProgress from '@mui/material/CircularProgress';
-import InfiniteScroll from "react-infinite-scroll-component";
 
 const StyledBox = styled(Box)`
   margin: 3em;
@@ -17,9 +17,9 @@ const StyledError = styled.div`
 `
 const TRY_AGAIN_ERROR = "There was an error, please try again or choose a different image";
 
-const BREED_IMAGES_API = (breed: string): string => `https://dog.ceo/api/breed/${breed}/images`
-
 const SCROLL_DATA_SIZE = 12;
+
+const BREED_IMAGES_API = (breed: string): string => `https://dog.ceo/api/breed/${breed}/images`
 
 enum SuccessOptions {
   SUCCESS = "success",

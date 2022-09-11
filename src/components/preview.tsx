@@ -27,17 +27,17 @@ const StyledEmptyPreview = styled.div`
     text-align: center;
 `;
 
-const PREVIEW_TEXT = "Photo preview";
+export const PREVIEW_TEXT_EMPTY = "Photo preview";
 
 const Preview = ({ imgData, isFileImage }: { imgData: string | ArrayBuffer | null, isFileImage: boolean }) => {
     return (
         <StyledPreviewContainer className="previewPic">
             {imgData ?
-                <StyledImage className="uploaded-dog" src={imgData as string} alt="preview" /> :
+                <StyledImage className="uploaded-dog" data-test-id="uploaded-dog" src={imgData as string} alt="preview" /> :
                 <StyledEmptyPreview>
                     {isFileImage ?
                         <>
-                            <div>{PREVIEW_TEXT} </div>
+                            <div>{PREVIEW_TEXT_EMPTY} </div>
                             <StyledImageIcon />
                         </> :
                         'File is not an image'
