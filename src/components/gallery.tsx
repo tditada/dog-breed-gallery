@@ -19,7 +19,7 @@ const TRY_AGAIN_ERROR = "There was an error, please try again or choose a differ
 
 const BREED_IMAGES_API = (breed: string): string => `https://dog.ceo/api/breed/${breed}/images`
 
-const SCROLL_DATA_SIZE = 10;
+const SCROLL_DATA_SIZE = 12;
 
 enum SuccessOptions {
   SUCCESS = "success",
@@ -66,11 +66,11 @@ function BreedGallery({ breed }: { breed: string | undefined }) {
         if (Array.isArray(data.message)) {
           setImages(data.message);
           setScrollData(data.message.slice(0, SCROLL_DATA_SIZE));
+          setHasMoreValue(data.message.length > SCROLL_DATA_SIZE);
           setError(null);
         }
       }
     } catch (err: any) {
-      setLoading(false);
       setImages([]);
       setScrollData([]);
       setHasMoreValue(false);

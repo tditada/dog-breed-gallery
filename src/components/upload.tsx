@@ -1,12 +1,10 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 import Button from '@mui/material/Button';
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
 
 import Preview from './preview';
-import BreedPrediction from './breed-prediction';
-import { classify } from '../helpers';
 
 const StyledUpload = styled.div`
     display: flex;
@@ -14,7 +12,7 @@ const StyledUpload = styled.div`
     align-items: center;
     justify-content: center;
     padding: 1rem;
-    border: solid 1px black;
+    // border: solid 1px black;
     margin: auto;
     width: fit-content;
 `;
@@ -37,10 +35,20 @@ const boxSX = {
     },
 };
 
+const StyledExplanationText = styled.div`
+    width: 10rem;
+    padding-bottom: 1rem;
+}`;
+
+const EXPLANATION_TEXT = 'Want to know what breed a dog is and find similar photos?';
 const UPLOAD_BUTTON_TEXT = "upload dog";
 
-const Upload = ({ breed, setBreed }: { breed: string | undefined, setBreed: React.Dispatch<React.SetStateAction<string | undefined>> }) => {
-    const [imgData, setImgData] = useState<string | ArrayBuffer | null>(null);
+
+const Upload = ({ imgData, setBreed, setImgData }: {
+    imgData: string | ArrayBuffer | null,
+    setBreed: React.Dispatch<React.SetStateAction<string | undefined>>,
+    setImgData: React.Dispatch<React.SetStateAction<string | ArrayBuffer | null>>,
+}) => {
     const [isFileImage, setIsFileImage] = useState<boolean>(true);
 
     const onChangePicture = (e: any) => {
@@ -60,31 +68,19 @@ const Upload = ({ breed, setBreed }: { breed: string | undefined, setBreed: Reac
         }
     };
 
-    const getClassification = useCallback(async () => {
-        const classification = await classify();
-        if (classification) {
-            setBreed(classification);
-
-        }
-    }, [setBreed]);
-
-    useEffect(() => {
-        if (imgData) {
-            getClassification();
-        }
-    }, [imgData, getClassification]);
 
     return (
         <StyledUpload>
             <StyledButtonContainer>
                 <StyledInput htmlFor="contained-button-file">
+                    <StyledExplanationText>{EXPLANATION_TEXT}</StyledExplanationText>
                     <input hidden accept="image/*" id="contained-button-file" type="file" onChange={onChangePicture} />
                     <Button sx={boxSX} variant="contained" component="span">
                         <PhotoCamera />
                         {UPLOAD_BUTTON_TEXT}
                     </Button>
                 </StyledInput>
-                <BreedPrediction breed={breed} />
+
             </StyledButtonContainer>
             <Preview imgData={imgData} isFileImage={isFileImage} />
         </StyledUpload>
