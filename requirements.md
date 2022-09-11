@@ -49,3 +49,4 @@ help you write the components (we use lit-element ourselves).
 5. Support latest browsers
 6. Documentation
 7. Unit tests
+8. Deploy
